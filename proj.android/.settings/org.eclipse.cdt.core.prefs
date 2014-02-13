@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/com.android.toolchain.gcc.1572454803/MAKEFLAGS/delimiter=\:
+environment/project/com.android.toolchain.gcc.1572454803/MAKEFLAGS/operation=append
+environment/project/com.android.toolchain.gcc.1572454803/MAKEFLAGS/value=-j10
+environment/project/com.android.toolchain.gcc.1572454803/NDK_DEBUG/delimiter=\:
+environment/project/com.android.toolchain.gcc.1572454803/NDK_DEBUG/operation=append
+environment/project/com.android.toolchain.gcc.1572454803/NDK_DEBUG/value=1
+environment/project/com.android.toolchain.gcc.1572454803/append=true
+environment/project/com.android.toolchain.gcc.1572454803/appendContributed=true

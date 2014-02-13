@@ -71,12 +71,31 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
     
+    CCLabelTTF *label1 = CCLabelTTF::create("callsdk", "Marker Felt", 26);
+    CCMenuItemLabel *item1 = CCMenuItemLabel::create(label1,this,menu_selector(HelloWorld::callSdk));
+
+    CCMenu *menu = CCMenu::create(item1, NULL);
+    addChild(menu);
+    CCSize s = CCDirector::sharedDirector()->getWinSize();
+    menu->setPosition(ccp(s.width / 2, 100));
+
+
+
     return true;
 }
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
 {
     CCDirector::sharedDirector()->end();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
+}
+
+void HelloWorld::callSdk(CCObject* pSender)
+{
+    CCLOG("callSdk");
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);

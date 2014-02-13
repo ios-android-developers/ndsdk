@@ -18,4 +18,5 @@ include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,CocosDenshion/android) \
 $(call import-module,cocos2dx) \
-$(call import-module,extensions) $(call import-module,scripting/lua/proj.android)
+$(call import-module,extensions) \
+$(call import-module,scripting/lua/proj.android)

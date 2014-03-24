@@ -1,5 +1,5 @@
-APPNAME="ndsdk"
-APP_ANDROID_NAME="com.talkingsdk.ndsdk"
+APPNAME="common-sdk"
+APP_ANDROID_NAME="com.talkingsdk.common-sdk"
 
 if [ -z "${SDK_ROOT+aaa}" ]; then
 # ... if SDK_ROOT is not set, use "$HOME/bin/android-sdk"

@@ -21,19 +21,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package com.talkingsdk.ndsdk;
+package com.talkingsdk.common_sdk;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.os.Bundle;
 
-public class ndsdk extends Cocos2dxActivity{
+public class common_sdk extends Cocos2dxActivity{
 
 	protected void onCreate(Bundle savedInstanceState){
+		System.out.print("common_sdkonCreate");
 		super.onCreate(savedInstanceState);
 	}
 	
     static {
+    	System.out.print("loadLibrary");
          System.loadLibrary("game");
     }
 }

@@ -4,17 +4,28 @@ package com.talkingsdk.common_sdk;
 import android.app.Application;
 
 public class MainApplication extends Application {
-	private SdkBase sdkInstance = null;
+	private SdkBase _sdkInstance = null;
+	public SdkBase getSdkInstance()
+	{
+		return _sdkInstance;
+	}
+	
+	private static MainApplication _instance = null;
+	public static MainApplication getInstance()
+	{
+		return _instance;
+	}
 	@Override
 	public void onCreate() {
 		super.onCreate(); 
+		_instance = this;
 		String name = "com.talkingsdk.NdSdk";
 		System.out.print(name);
 		Class<?> cls;
 		try {
 			cls = Class.forName(name);
-			sdkInstance = (SdkBase) cls.newInstance();
-			sdkInstance.init(null);
+			_sdkInstance = (SdkBase) cls.newInstance();
+			_sdkInstance.initSdk(null);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,8 +41,8 @@ public class MainApplication extends Application {
 
 	@Override
 	public void onTerminate() {
-		if( sdkInstance != null ){
-			sdkInstance.exit();
+		if( _sdkInstance != null ){
+			_sdkInstance.exit();
 		}
 		super.onTerminate();
 	}

@@ -23,19 +23,15 @@ THE SOFTWARE.
 ****************************************************************************/
 package com.talkingsdk.common_sdk;
 
-import org.cocos2dx.lib.Cocos2dxActivity;
+import com.talkingsdk.BaseActivity;
 
 import android.os.Bundle;
 
-public class common_sdk extends Cocos2dxActivity{
+public class common_sdk extends BaseActivity{
 
 	protected void onCreate(Bundle savedInstanceState){
 		System.out.print("common_sdkonCreate");
 		super.onCreate(savedInstanceState);
+		MainApplication.getInstance().getSdkInstance().initUI(this);
 	}
-	
-    static {
-    	System.out.print("loadLibrary");
-         System.loadLibrary("game");
-    }
 }

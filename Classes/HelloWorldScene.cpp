@@ -1,5 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "MainApplication.h"
+#include "SdkBase.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -71,15 +73,19 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
     
-    CCLabelTTF *label1 = CCLabelTTF::create("callsdk", "Marker Felt", 26);
-    CCMenuItemLabel *item1 = CCMenuItemLabel::create(label1,this,menu_selector(HelloWorld::callSdk));
+    CCLabelTTF *labelcallback = CCLabelTTF::create("callsdk", "Marker Felt", 26);
+    CCMenuItemLabel *itemcallback = CCMenuItemLabel::create(labelcallback,this,menu_selector(HelloWorld::callSdk));
 
-    CCMenu *menu = CCMenu::create(item1, NULL);
+    CCLabelTTF *labellogout = CCLabelTTF::create("logout", "Marker Felt", 26);
+    CCMenuItemLabel *itemlogout = CCMenuItemLabel::create(labellogout,this,menu_selector(HelloWorld::logout));
+
+
+    CCMenu *menu = CCMenu::create(itemcallback, NULL);
+    menu->addChild(itemlogout);
+    menu->alignItemsVertically();
     addChild(menu);
     CCSize s = CCDirector::sharedDirector()->getWinSize();
     menu->setPosition(ccp(s.width / 2, 100));
-
-
 
     return true;
 }
@@ -92,10 +98,25 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
     exit(0);
 #endif
 }
+void HelloWorld::logout(CCObject* pSender)
+{
+    CCLOG("logout");
+    MainApplication* instance = MainApplication::getInstance();
+    SdkBase *sb = SdkBase::getInstance();
+    sb->logout();
+    sb->login();
+    sb->changeAccount();
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
+}
 void HelloWorld::callSdk(CCObject* pSender)
 {
     CCLOG("callSdk");
+    MainApplication* instance = MainApplication::getInstance();
+    SdkBase *sb = SdkBase::getInstance();
+    sb->getLoginData()->getUsername();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);

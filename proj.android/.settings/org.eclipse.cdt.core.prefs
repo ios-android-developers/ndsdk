@@ -1,6 +1,9 @@
 eclipse.preferences.version=1
-environment/project/com.android.toolchain.gcc.1572454803/NDK_MODULE_PATH/delimiter=\:
-environment/project/com.android.toolchain.gcc.1572454803/NDK_MODULE_PATH/operation=append
-environment/project/com.android.toolchain.gcc.1572454803/NDK_MODULE_PATH/value=/Users/roscus/sourcecode/github/cocos2d-x\:/Users/roscus/sourcecode/github/cocos2d-x/cocos2dx/platform/third_party/android/prebuilt
+environment/project/com.android.toolchain.gcc.1572454803/MAKEFLAGS/delimiter=\:
+environment/project/com.android.toolchain.gcc.1572454803/MAKEFLAGS/operation=append
+environment/project/com.android.toolchain.gcc.1572454803/MAKEFLAGS/value=-j10
+environment/project/com.android.toolchain.gcc.1572454803/NDK_DEBUG/delimiter=\:
+environment/project/com.android.toolchain.gcc.1572454803/NDK_DEBUG/operation=append
+environment/project/com.android.toolchain.gcc.1572454803/NDK_DEBUG/value=1
 environment/project/com.android.toolchain.gcc.1572454803/append=true
 environment/project/com.android.toolchain.gcc.1572454803/appendContributed=true

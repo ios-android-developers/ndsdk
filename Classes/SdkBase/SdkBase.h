@@ -9,6 +9,15 @@
 #define SDKBASE_H_
 #include <jni.h>
 #include <string>
+
+#define GET_CLASS_PATH( relative_path )  "com/talkingsdk/"#relative_path
+
+#define GET_RETURN_SIGN( params_sign, return_type )  params_sign return_type ";"
+
+#define SDKBASE_CLASS_PATH GET_CLASS_PATH(SdkBase)
+#define MAINAPPLICATION_CLASS_PATH GET_CLASS_PATH(MainApplication)
+#define LOGINDATA_CLASS_PATH GET_CLASS_PATH(models/LoginData)
+
 #include "LoginData.h"
 using namespace std;
 class SdkBase{
@@ -30,6 +39,7 @@ public:
 	jobject getJLoginData();
 	void logout();
 	void login();
+	void pay();
 	void changeAccount();
 private:
 

@@ -1,7 +1,10 @@
-package com.talkingsdk;
+package com.talkingsdk.nd;
+
+import java.util.UUID;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.nd.commplatform.NdCommplatform;
 import com.nd.commplatform.NdErrorCode;
@@ -9,12 +12,13 @@ import com.nd.commplatform.NdMiscCallbackListener;
 import com.nd.commplatform.OnInitCompleteListener;
 import com.nd.commplatform.NdMiscCallbackListener.OnLoginProcessListener;
 import com.nd.commplatform.entry.NdAppInfo;
+import com.nd.commplatform.entry.NdBuyInfo;
 import com.nd.commplatform.entry.NdLoginStatus;
-import com.talkingsdk.common_sdk.SdkBase;
-import com.talkingsdk.common_sdk.models.LoginData;
+import com.talkingsdk.SdkBase;
+import com.talkingsdk.models.LoginData;
 
 
-public class NdSdk implements SdkBase{
+public class SdkObject implements SdkBase{
 	public static final int appID_91Bean = 100010;//91appID
 	public static final String appKEY_91Bean = "C28454605B9312157C2F76F27A9BCA2349434E546A6E9C75";//91appKEY
 	private Activity _startActivity;
@@ -29,13 +33,17 @@ public class NdSdk implements SdkBase{
 		return this._startActivity;
 	}
 	public void initSdk(Object obj){
+		
 	}
+	
 	public void initGame(Object obj){
 		System.out.println("NdSdk init");
 	}
+	
 	public void exit() {
 		System.out.println("NdSdk exit");
 	}
+	
 	private void doGameLogin(int code) {
 
 		String tip = "";
@@ -142,5 +150,61 @@ public class NdSdk implements SdkBase{
 	@Override
 	public LoginData getLoginData() {
 		return _loginData;
+	}
+
+	@Override
+	public void pay() {
+		StartGameActivity.getInstance().runOnUiThread(new Runnable() {
+			public void run() {
+				NdBuyInfo buyInfo = new NdBuyInfo();
+				String serial = UUID.randomUUID().toString();
+				buyInfo.setSerial(serial.toString());// 订单号唯一(不能为空)
+				buyInfo.setProductId("680254");// 商品ID,厂商也可以使用固定商品ID 例如“1”
+				buyInfo.setProductName("苹果");// 产品名称
+				buyInfo.setProductPrice(0.01);// 产品现价 (不能小于0.01个91豆)
+				buyInfo.setProductOrginalPrice(2.60);// 产品原价,同上面的价格
+				buyInfo.setCount(3);// 购买数量(商品数量最大10000,最新1)
+				buyInfo.setPayDescription("gamezoon1");// 服务器分区,不超过20个字符,只允许英文或数字
+				int aError = NdCommplatform.getInstance().ndUniPayAsyn(buyInfo,
+						StartGameActivity.getInstance(),
+						new NdMiscCallbackListener.OnPayProcessListener() {
+							@Override
+							public void finishPayProcess(int code) {
+								switch (code) {
+								case NdErrorCode.ND_COM_PLATFORM_SUCCESS:
+									Toast.makeText(getParentActivity(), "购买成功",
+											Toast.LENGTH_SHORT).show();
+									break;
+								case NdErrorCode.ND_COM_PLATFORM_ERROR_PAY_FAILURE:
+									Toast.makeText(getParentActivity(), "购买失败",
+											Toast.LENGTH_SHORT).show();
+									break;
+								case NdErrorCode.ND_COM_PLATFORM_ERROR_PAY_CANCEL:
+									Toast.makeText(getParentActivity(), "取消购买",
+											Toast.LENGTH_SHORT).show();
+									break;
+								case NdErrorCode.ND_COM_PLATFORM_ERROR_PAY_ASYN_SMS_SENT:
+									Toast.makeText(getParentActivity(),
+											"订单已提交,充值短信已发送", Toast.LENGTH_SHORT)
+											.show();
+									break;
+								case NdErrorCode.ND_COM_PLATFORM_ERROR_PAY_REQUEST_SUBMITTED:
+									System.err.printf("%s", "订单已提交");
+									Toast.makeText(getParentActivity(),
+											"订单已提交", Toast.LENGTH_SHORT).show();
+									break;
+								default:
+									Toast.makeText(getParentActivity(), "购买失败",
+											Toast.LENGTH_SHORT).show();
+								}
+							}
+						});
+				if (aError != 0) {
+					Toast.makeText(getParentActivity(), "您输入参数有错,无法提交购买请求",
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
 	}
 }

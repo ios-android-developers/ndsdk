@@ -9,16 +9,16 @@ LOCAL_MODULE_FILENAME := libgame
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/HelloWorldScene.cpp \
-                   ../../Classes/SdkBase.cpp \
-                   ../../Classes/LoginData.cpp \
-                   ../../Classes/MainApplication.cpp
+                   ../../Classes/SdkBase/SdkBase.cpp \
+                   ../../Classes/SdkBase/LoginData.cpp \
+                   ../../Classes/SdkBase/MainApplication.cpp
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes                   
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocosdenshion_static cocos_extension_static cocos_lua_static
             
 include $(BUILD_SHARED_LIBRARY)
-
+$(call import-add-path, $(LOCAL_PATH))
 $(call import-module,CocosDenshion/android) \
 $(call import-module,cocos2dx) \
 $(call import-module,extensions) \

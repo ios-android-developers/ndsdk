@@ -21,16 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package com.talkingsdk.common_sdk;
-
-import com.talkingsdk.BaseActivity;
+package com.talkingsdk;
 
 import android.os.Bundle;
 
-public class common_sdk extends BaseActivity{
+public class MainActivity extends BaseActivity{
 
 	protected void onCreate(Bundle savedInstanceState){
-		System.out.print("common_sdkonCreate");
 		super.onCreate(savedInstanceState);
 		MainApplication.getInstance().getSdkInstance().initUI(this);
 	}

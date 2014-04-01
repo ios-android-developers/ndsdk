@@ -11,6 +11,7 @@ using namespace cocos2d;
 #include <jni.h>
 #include "platform/android/jni/JniHelper.h"
 #endif
+#include "SdkBase.h"
 #include "MainApplication.h"
 
 MainApplication* MainApplication::_instance = NULL;
@@ -25,7 +26,7 @@ jobject MainApplication::getJSingletonInstance(const char* clazzName) {
 	jobject instance;
 	JniMethodInfo minfo;
 	bool isHave = JniHelper::getStaticMethodInfo(minfo, clazzName,
-			"getInstance", "()Lcom/talkingsdk/common_sdk/MainApplication;");
+			"getInstance", GET_RETURN_SIGN("()L",MAINAPPLICATION_CLASS_PATH));
 	if (isHave) {
 		instance = minfo.env->CallStaticObjectMethod(minfo.classID,
 				minfo.methodID);
@@ -35,7 +36,7 @@ jobject MainApplication::getJSingletonInstance(const char* clazzName) {
 }
 
 jobject MainApplication::getJInstance() {
-	jobject instance = MainApplication::getJSingletonInstance("com/talkingsdk/common_sdk/MainApplication");
+	jobject instance = MainApplication::getJSingletonInstance(MAINAPPLICATION_CLASS_PATH);
 	return instance;
 }
 
@@ -44,8 +45,8 @@ jobject MainApplication::getJSdkInstance()
 	JniMethodInfo minfo;
 	jobject instance;
 	if (JniHelper::getMethodInfo(minfo,
-			"com/talkingsdk/common_sdk/MainApplication", "getSdkInstance",
-			"()Lcom/talkingsdk/common_sdk/SdkBase;")) {
+			MAINAPPLICATION_CLASS_PATH, "getSdkInstance",
+			GET_RETURN_SIGN("()L",SDKBASE_CLASS_PATH))) {
 		instance = (jobject) minfo.env->CallObjectMethod(getJInstance(),
 				minfo.methodID);
 		assert(instance);

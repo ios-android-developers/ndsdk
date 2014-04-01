@@ -1,4 +1,4 @@
-package com.talkingsdk.common_sdk.models;
+package com.talkingsdk.models;
 
 import java.util.HashMap;
 

@@ -15,7 +15,7 @@ using namespace cocos2d;
 #include "MainApplication.h"
 SdkBase* SdkBase::_instance = NULL;
 
-const char* jclass_path = "com/talkingsdk/common_sdk/SdkBase";
+const char* jclass_path = SDKBASE_CLASS_PATH;
 SdkBase::SdkBase()
 {
 }
@@ -56,13 +56,17 @@ void SdkBase::login()
 {
 	callVoid("login");
 }
+void SdkBase::pay()
+{
+	callVoid("pay");
+}
 void SdkBase::changeAccount()
 {
 	callVoid("changeAccount");
 }
 jobject SdkBase::getJLoginData()
 {
-	jobject obj = SdkBase::getJObject("getLoginData", "()Lcom/talkingsdk/common_sdk/models/LoginData;");
+	jobject obj = SdkBase::getJObject("getLoginData",GET_RETURN_SIGN("()L",LOGINDATA_CLASS_PATH));
 	return obj;
 }
 LoginData* SdkBase::getLoginData()

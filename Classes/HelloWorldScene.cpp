@@ -1,7 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
-#include "MainApplication.h"
-#include "SdkBase.h"
+#include "SdkBase/MainApplication.h"
+#include "SdkBase/SdkBase.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -79,9 +79,12 @@ bool HelloWorld::init()
     CCLabelTTF *labellogout = CCLabelTTF::create("logout", "Marker Felt", 26);
     CCMenuItemLabel *itemlogout = CCMenuItemLabel::create(labellogout,this,menu_selector(HelloWorld::logout));
 
+    CCLabelTTF *labelpay = CCLabelTTF::create("pay", "Marker Felt", 26);
+    CCMenuItemLabel *itempay = CCMenuItemLabel::create(labelpay,this,menu_selector(HelloWorld::pay));
 
     CCMenu *menu = CCMenu::create(itemcallback, NULL);
     menu->addChild(itemlogout);
+    menu->addChild(itempay);
     menu->alignItemsVertically();
     addChild(menu);
     CCSize s = CCDirector::sharedDirector()->getWinSize();
@@ -111,12 +114,25 @@ void HelloWorld::logout(CCObject* pSender)
     exit(0);
 #endif
 }
+void HelloWorld::pay(CCObject* pSender)
+{
+    CCLOG("pay");
+    MainApplication* instance = MainApplication::getInstance();
+    SdkBase *sb = SdkBase::getInstance();
+    sb->pay();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    exit(0);
+#endif
+}
+
 void HelloWorld::callSdk(CCObject* pSender)
 {
     CCLOG("callSdk");
     MainApplication* instance = MainApplication::getInstance();
     SdkBase *sb = SdkBase::getInstance();
-    sb->getLoginData()->getUsername();
+    CCLOG("username:%s, sessionid: %s",sb->getLoginData()->getUsername().c_str(),
+    		sb->getLoginData()->getSessionId().c_str());
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);

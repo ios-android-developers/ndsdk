@@ -14,7 +14,8 @@ using namespace cocos2d;
 #include "SdkBase.h"
 #include "LoginData.h"
 
-char* LoginData::jclass_path = "com/talkingsdk/common_sdk/models/LoginData";
+char* LoginData::jclass_path = GET_CLASS_PATH(models/LoginData);
+
 LoginData* LoginData::_instance = NULL;
 LoginData::LoginData() {
 	// TODO Auto-generated constructor stub
@@ -47,6 +48,12 @@ const string LoginData::getUsername()
 	return un;
 }
 
+const string LoginData::getSessionId()
+{
+	jobject obj = LoginData::getJObject("getSessionId", "()Ljava/lang/String;");
+	string un = JniHelper::jstring2string((jstring)obj);
+	return un;
+}
 const string LoginData::getLoginDataEx(const char* key)
 {
 	return "";

@@ -7,9 +7,6 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nd.commplatform.NdCommplatform;
@@ -17,43 +14,41 @@ import com.nd.commplatform.NdPageCallbackListener.OnPauseCompleteListener;
 
 public class BaseActivity extends Activity{
 
-	private String title;
-	private Button buttonLeft;
 	private ProgressDialog progressDialog;
 
-	
+
 	private boolean isAppForeground = true;
-	
+
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		if(!isAppOnForeground()){//app�����̨
+		if(!isAppOnForeground()){//app进入后台
 			isAppForeground = false;
 		}
 	}
-	
-	
+
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if(!isAppForeground){//�Ӻ�̨�е�ǰ̨����91SDK��ͣҳ
+		if(!isAppForeground){//从后台切到前台，打开91SDK暂停页
 			NdCommplatform.getInstance().ndPause(new OnPauseCompleteListener(this){
 
 				@Override
 				public void onComplete() {
 					// TODO Auto-generated method stub
-					Toast.makeText(BaseActivity.this, "�˳���ͣҳ", Toast.LENGTH_LONG).show();
+					Toast.makeText(BaseActivity.this, "退出暂停页", Toast.LENGTH_LONG).show();
 				}
-				
+
 			});
 			isAppForeground = true;
 		}
 	}
-	
+
 	/**
-	 * �ж�App�Ƿ���ǰ̨����
+	 * 判断App是否在前台运行
 	 * @return
 	 */
 	public boolean isAppOnForeground() {
@@ -70,27 +65,20 @@ public class BaseActivity extends Activity{
 			}
 		}
 		return false;
-	} 
-	
-	 
-	
-	protected void setTitle(String title){
-		this.title = title;
 	}
-	
+
 	protected void initUI(){
-		
 	}
-	
+
 	protected void showLoading(){
 		progressDialog = new ProgressDialog(this);
-		progressDialog.setMessage("���ڼ���...");
+		progressDialog.setMessage("正在加载...");
 		progressDialog.setIndeterminate(true);
 		progressDialog.setCancelable(false);
 		progressDialog.show();
 	}
-	
-	
+
+
 	protected void showLoading(String tips){
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage(tips);
@@ -98,17 +86,14 @@ public class BaseActivity extends Activity{
 		progressDialog.setCancelable(false);
 		progressDialog.show();
 	}
-	
-	
-	 
-	
-	protected void hideLoading(){ 
+
+	protected void hideLoading(){
 		if(progressDialog != null){
 			progressDialog.cancel();
 			progressDialog = null;
-		} 
+		}
 	}
-	
-	 
-	
+
+
+
 }

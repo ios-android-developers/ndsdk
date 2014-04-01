@@ -1,4 +1,4 @@
-package com.talkingsdk.common_sdk;
+package com.talkingsdk;
 
 
 import android.app.Application;
@@ -19,7 +19,7 @@ public class MainApplication extends Application {
 	public void onCreate() {
 		super.onCreate(); 
 		_instance = this;
-		String name = "com.talkingsdk.NdSdk";
+		String name = "com.talkingsdk.nd.SdkObject";
 		System.out.print(name);
 		Class<?> cls;
 		try {

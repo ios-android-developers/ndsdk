@@ -57,21 +57,5 @@ const string LoginData::getSessionId()
 const string LoginData::getLoginDataEx(const char* key)
 {
 	return "";
-	/*
-	jobject obj = LoginData::getJObject("getEx", "()L<K:Ljava/lang/String;V:Ljava/lang/String;>Ljava/util/HashMap<TK;TV;>;");
-	return obj;
-	JniMethodInfo minfo;
-	jobject obj = SdkBase::getJObject("getLoginData", "()Lcom/talkingsdk/common_sdk/models/LoginData;");
-
-	if (JniHelper::getMethodInfo(minfo,
-			jclass_path, "getUsername",	"()Ljava/lang/String;")) {
-		jobject jSdkInstance  = MainApplication::getInstance()->getJSdkInstance();
-		jstring username = (jstring) minfo.env->CallObjectMethod(jSdkInstance,
-				minfo.methodID);
-		string un = JniHelper::jstring2string(username);
-		const char * tmp = un.c_str();
-		printf("%s",tmp);
-	}
-	return NULL;
-	*/
 }
+

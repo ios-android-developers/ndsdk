@@ -19,6 +19,7 @@
 #define LOGINDATA_CLASS_PATH GET_CLASS_PATH(models/LoginData)
 
 #include "LoginData.h"
+#include "PayData.h"
 using namespace std;
 class SdkBase{
 private:
@@ -31,7 +32,7 @@ private:
 protected:
 	jobject getJObject(const char* method, const char* jType );
 	void callVoid(const char* method);
-
+	void callVoidWithOneParam(const char* method,const char* methodSign, jobject obj);
 
 public:
 	static SdkBase* getInstance();
@@ -39,9 +40,10 @@ public:
 	jobject getJLoginData();
 	void logout();
 	void login();
-	void pay();
+	void pay(PayData& pd);
 	void changeAccount();
 private:
+	LoginData* _loginData;
 
 };
 

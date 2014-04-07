@@ -6,6 +6,7 @@ LOCAL_MODULE    := SdkBase
 LOCAL_MODULE_FILENAME := libSdkBase
 LOCAL_SRC_FILES := SdkBase.cpp \
                    LoginData.cpp \
+                   PayData.cpp \
                    MainApplication.cpp
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)

@@ -10,6 +10,7 @@
 
 #include "SdkBase.h"
 #include "LoginData.h"
+#include "PayData.h"
 #include "MainApplication.h"
 
 #endif

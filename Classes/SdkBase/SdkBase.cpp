@@ -16,7 +16,7 @@ using namespace cocos2d;
 SdkBase* SdkBase::_instance = NULL;
 
 const char* jclass_path = SDKBASE_CLASS_PATH;
-SdkBase::SdkBase()
+SdkBase::SdkBase(): _loginData(NULL)
 {
 }
 SdkBase* SdkBase::getInstance()
@@ -30,22 +30,26 @@ jobject SdkBase::getJObject(const char* method, const char* jType )
 {
 	JniMethodInfo minfo;
 	jobject obj = NULL;
-	if (JniHelper::getMethodInfo(minfo, jclass_path,
-			method, jType)) {
-		jobject jSdkInstance =
-				MainApplication::getInstance()->getJSdkInstance();
-		obj = minfo.env->CallObjectMethod(jSdkInstance,
-				minfo.methodID);
+	if (JniHelper::getMethodInfo(minfo, jclass_path, method, jType)) {
+		jobject jSdkInstance = MainApplication::getInstance()->getJSdkInstance();
+		obj = minfo.env->CallObjectMethod(jSdkInstance, minfo.methodID);
 	}
 	return obj;
 }
 void SdkBase::callVoid(const char* method)
 {
 	JniMethodInfo minfo;
-	jobject obj = NULL;
 	if (JniHelper::getMethodInfo(minfo, jclass_path, method, "()V")) {
 		jobject jSdkInstance = MainApplication::getInstance()->getJSdkInstance();
 		minfo.env->CallVoidMethod(jSdkInstance, minfo.methodID);
+	}
+}
+void SdkBase::callVoidWithOneParam(const char* method,const char* methodSign, jobject obj)
+{
+	JniMethodInfo minfo;
+	if (JniHelper::getMethodInfo(minfo, jclass_path, method, methodSign)) {
+		jobject jSdkInstance = MainApplication::getInstance()->getJSdkInstance();
+		minfo.env->CallVoidMethod(jSdkInstance, minfo.methodID,obj);
 	}
 }
 void SdkBase::logout()
@@ -56,9 +60,9 @@ void SdkBase::login()
 {
 	callVoid("login");
 }
-void SdkBase::pay()
+void SdkBase::pay(PayData& pd)
 {
-	callVoid("pay");
+	callVoidWithOneParam("pay","(Lcom/talkingsdk/models/PayData;)V",pd.toJObject());
 }
 void SdkBase::changeAccount()
 {
@@ -71,6 +75,9 @@ jobject SdkBase::getJLoginData()
 }
 LoginData* SdkBase::getLoginData()
 {
-	return LoginData::getInstance();
+	if( _loginData == NULL ){
+		_loginData = new LoginData();
+		_loginData->fromJObject(getJLoginData());
+	}
+	return _loginData;
 }
-

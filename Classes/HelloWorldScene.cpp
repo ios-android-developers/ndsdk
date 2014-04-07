@@ -119,7 +119,15 @@ void HelloWorld::pay(CCObject* pSender)
     CCLOG("pay");
     MainApplication* instance = MainApplication::getInstance();
     SdkBase *sb = SdkBase::getInstance();
-    sb->pay();
+    PayData pd;
+    pd.setMyOrderId("123456order");
+    pd.setProductId("680254");
+    pd.setProductName("苹果");
+    pd.setProductRealPrice(0.01);
+    pd.setProductIdealPrice(2.60);
+    pd.setProductCount(1);
+    pd.setDescription("gamezoon1");
+    sb->pay(pd);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
@@ -131,8 +139,9 @@ void HelloWorld::callSdk(CCObject* pSender)
     CCLOG("callSdk");
     MainApplication* instance = MainApplication::getInstance();
     SdkBase *sb = SdkBase::getInstance();
-    CCLOG("username:%s, sessionid: %s",sb->getLoginData()->getUsername().c_str(),
-    		sb->getLoginData()->getSessionId().c_str());
+    LoginData* loginData = sb->getLoginData();
+    CCLOG("username:%s, sessionid: %s",loginData->getUsername().c_str(),
+    		loginData->getSessionId().c_str());
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);

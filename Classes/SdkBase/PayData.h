@@ -13,12 +13,8 @@
 
 using namespace std;
 class PayData{
-private:
+public:
 	PayData();
-	PayData(PayData const&);
-	PayData& operator=( PayData const &);
-	~PayData() {};
-	static PayData* _instance;
 
 protected:
 	jobject getJObject(const char* method, const char* jType );
@@ -27,9 +23,9 @@ private:
 	string _myOrderId;
 	string _productId;
 	string _productName;
-	string _productRealPrice;
-	string _productIdealPrice;
-	string _productCount;
+	float  _productRealPrice;
+	float  _productIdealPrice;
+	int    _productCount;
 	string _description;
 public:
 	static char* jclass_path;
@@ -52,6 +48,8 @@ public:
 	void setProductCount(int productCount);
 	void setDescription(const char* desc );
 	void setPayDataEx(const char* key, const char* value);
+
+	jobject toJObject();
 private:
 
 };

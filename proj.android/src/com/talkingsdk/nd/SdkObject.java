@@ -16,6 +16,7 @@ import com.nd.commplatform.entry.NdBuyInfo;
 import com.nd.commplatform.entry.NdLoginStatus;
 import com.talkingsdk.SdkBase;
 import com.talkingsdk.models.LoginData;
+import com.talkingsdk.models.PayData;
 
 
 public class SdkObject implements SdkBase{
@@ -153,18 +154,17 @@ public class SdkObject implements SdkBase{
 	}
 
 	@Override
-	public void pay() {
+	public void pay(com.talkingsdk.models.PayData payData) {
+		final NdBuyInfo buyInfo = new NdBuyInfo();
+		buyInfo.setSerial(payData.getMyOrderId());// 订单号唯一(不能为空)
+		buyInfo.setProductId("680254");// 商品ID,厂商也可以使用固定商品ID 例如“1”
+		buyInfo.setProductName("苹果");// 产品名称
+		buyInfo.setProductPrice(0.01);// 产品现价 (不能小于0.01个91豆)
+		buyInfo.setProductOrginalPrice(2.60);// 产品原价,同上面的价格
+		buyInfo.setCount(3);// 购买数量(商品数量最大10000,最新1)
+		buyInfo.setPayDescription("gamezoon1");// 服务器分区,不超过20个字符,只允许英文或数字
 		StartGameActivity.getInstance().runOnUiThread(new Runnable() {
 			public void run() {
-				NdBuyInfo buyInfo = new NdBuyInfo();
-				String serial = UUID.randomUUID().toString();
-				buyInfo.setSerial(serial.toString());// 订单号唯一(不能为空)
-				buyInfo.setProductId("680254");// 商品ID,厂商也可以使用固定商品ID 例如“1”
-				buyInfo.setProductName("苹果");// 产品名称
-				buyInfo.setProductPrice(0.01);// 产品现价 (不能小于0.01个91豆)
-				buyInfo.setProductOrginalPrice(2.60);// 产品原价,同上面的价格
-				buyInfo.setCount(3);// 购买数量(商品数量最大10000,最新1)
-				buyInfo.setPayDescription("gamezoon1");// 服务器分区,不超过20个字符,只允许英文或数字
 				int aError = NdCommplatform.getInstance().ndUniPayAsyn(buyInfo,
 						StartGameActivity.getInstance(),
 						new NdMiscCallbackListener.OnPayProcessListener() {

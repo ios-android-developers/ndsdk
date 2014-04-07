@@ -12,27 +12,21 @@
 #include <string>
 using namespace std;
 class LoginData{
-private:
+public:
 	LoginData();
-	LoginData(LoginData const&);
-	LoginData& operator=( LoginData const &);
-	~LoginData() {};
-	static LoginData* _instance;
-
-protected:
+	void fromJObject(jobject obj);
 	jobject getJObject(const char* method, const char* jType );
 
 public:
 	static char* jclass_path;
-	static LoginData* getInstance();
 	const string getUsername();
-	const string getPassword();
 	const string getSessionId();
 	const string getLoginDataEx(const char* key);
 
 private:
-
+	string _username;
+	string _password;
+	string _session_id;
 };
-
 
 #endif /* LoginData_H_ */
